@@ -678,3 +678,37 @@ public class CompletionTasksStreamMock: CompletionTasksStream {
 
 """
 
+let rxDriver = """
+/// \(String.mockAnnotation)(rx: attachedRouter = BehaviorRelay)
+protocol TaskRouting: BaseRouting {
+    var attachedRouter: Driver<Bool> { get }
+    func routeToFoo() -> Driver<()>
+}
+
+"""
+
+let rxDriverMock = """
+class TaskRoutingMock: TaskRouting {
+    init() { }
+    init(attachedRouter: BehaviorRelay<Bool> = BehaviorSubject<Bool>(value: false)) {
+        self.attachedRouter = attachedRouter
+    }
+    var attachedRouterSubjectSetCallCount = 0
+    var _attachedRouter: BehaviorRelay<Bool>? { didSet { attachedRouterSubjectSetCallCount += 1 } }
+    var attachedRouterSubject = BehaviorSubject<Bool>(value: false) { didSet { attachedRouterSubjectSetCallCount += 1 } }
+    var attachedRouter: BehaviorRelay<Bool> {
+        get { return _attachedRouter ?? attachedRouterSubject }
+        set { if let val = newValue as? BehaviorSubject<Bool> { attachedRouterSubject = val } else { _attachedRouter = newValue } }
+    }
+    var routeToFooCallCount = 0
+    var routeToFooHandler: (() -> (BehaviorRelay<()>))?
+    func routeToFoo() -> BehaviorRelay<()> {
+        routeToFooCallCount += 1
+        if let routeToFooHandler = routeToFooHandler {
+            return routeToFooHandler()
+        }
+        return BehaviorRelay<()>.empty()
+    }
+}
+
+"""

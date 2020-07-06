@@ -33,4 +33,9 @@ class RxVarTests: MockoloTestCase {
                mockContent: rxSubjectsParent,
                dstContent: rxSubjectsMock)
     }
+    
+    func testDriver() {
+        verify(srcContent: rxDriver,
+               dstContent: rxDriverMock)
+    }
 }
