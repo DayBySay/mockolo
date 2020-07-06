@@ -14,10 +14,10 @@
 //  limitations under the License.
 //
 import Foundation
-import TSCUtility
-import TSCBasic
+import TSCUtility // https://github.com/apple/swift-tools-support-core ArgumentParserが入っているモジュール
+import TSCBasic //
 
-func main() {
+func main() { // Mockoloのエントリーポイント関数
     let parser = ArgumentParser(usage: "<options>", overview: "Mockolo: Swift mock generator.")
     let command = Executor(parser: parser)
     let inputs = Array(CommandLine.arguments.dropFirst())
