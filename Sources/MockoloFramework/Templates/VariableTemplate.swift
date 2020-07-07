@@ -82,7 +82,7 @@ extension VariableModel {
         let staticSpace = isStatic ? "\(String.static) " : ""
         
         if let overrideTypes = overrideTypes, !overrideTypes.isEmpty {
-            let (subjectType, _, subjectVal) = type.parseRxVar(overrides: overrideTypes, overrideKey: name, isInitParam: true)
+            let (subjectType, _, subjectVal) = type.parseRxVar(overrides: overrideTypes, overrideKey: name, isInitParam: true) // ここでnilが返ってきたらNot Rx
             if let underlyingSubjectType = subjectType {
                 
                 let underlyingSubjectName = "\(name)\(String.subjectSuffix)"

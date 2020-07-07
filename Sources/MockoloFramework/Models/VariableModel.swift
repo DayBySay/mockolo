@@ -79,6 +79,7 @@ final class VariableModel: Model {
             return nil
         }
 
+        // Rx判定の処理はここで行っている
         if let rxVar = applyRxVariableTemplate(name: identifier,
                                                type: type,
                                                encloser: encloser,

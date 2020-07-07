@@ -17,7 +17,7 @@
 import Foundation
 import SwiftSyntax
 
-public class ParserViaSwiftSyntax: SourceParsing {
+public class ParserViaSwiftSyntax: SourceParsing { // ソースコードをパースしてASTからEntityを生成しているのだが正直よくわからん
     public init() {}
     
     public func parseProcessedDecls(_ paths: [String],
@@ -74,7 +74,7 @@ public class ParserViaSwiftSyntax: SourceParsing {
             var results = [Entity]()
             let node = try SyntaxParser.parse(path)
             let treeVisitor = EntityVisitor(path, annotation: annotation, fileMacro: fileMacro, declType: declType)
-            treeVisitor.walk(node)
+            treeVisitor.walk(node) // nodeから情報をパースしEntityを生成し、treeVisitorのEntitiesに突っ込む
             let ret = treeVisitor.entities
             results.append(contentsOf: ret)
             let importMap = treeVisitor.imports

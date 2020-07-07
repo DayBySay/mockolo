@@ -18,6 +18,10 @@ import Foundation
 import TSCUtility
 import MockoloFramework
 
+/* MockoloのAPIを叩くクラス
+ * setupArgument で MockoloのOptionを定義し、
+ * execute で Option の値を参照しつつ、Mock生成処理を実行する
+ */
 class Executor {
     let defaultTimeout = 20
     
@@ -209,7 +213,8 @@ class Executor {
                          to: outputFilePath,
                          loggingLevel: loggingLevel,
                          concurrencyLimit: concurrencyLimit,
-                         onCompletion: { _ in
+                         onCompletion: { result in
+                            //log(result) // 生成したMock実装の文字列が全部入っている
                     log("Done. Exiting program.", level: .info)
                     exit(0)
             })

@@ -580,7 +580,7 @@ final class EntityVisitor: SyntaxVisitor {
     
     override func visit(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind { visitImpl(node) }
 
-    private func visitImpl(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind {
+    private func visitImpl(_ node: ProtocolDeclSyntax) -> SyntaxVisitorContinueKind { // Protocolをパースしたときにこの関数が呼ばれる
         let metadata = node.annotationMetadata(with: annotation)
         if let ent = Entity.node(with: node, filepath: path, isPrivate: node.isPrivate, isFinal: false, metadata: metadata, processed: false) {
             entities.append(ent)

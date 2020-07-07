@@ -22,7 +22,7 @@ func generateUniqueModels(protocolMap: [String: Entity],
                           annotatedProtocolMap: [String: Entity],
                           inheritanceMap: [String: Entity],
                           completion: @escaping (ResolvedEntityContainer) -> ()) {
-    scan(annotatedProtocolMap) { (key, val, lock) in
+    scan(annotatedProtocolMap) { (key, val, lock) in // annotatedProtocolMapを回しているので、@mockableがついているプロトコルだけモデルを生成している
         let ret = generateUniqueModels(key: key, entity: val, protocolMap: protocolMap, inheritanceMap: inheritanceMap)
         lock?.lock()
         completion(ret)
